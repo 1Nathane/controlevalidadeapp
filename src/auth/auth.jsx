@@ -51,6 +51,23 @@ class Auth extends Component {
                                 </button>
                             </Grid>
                         </Row>
+                        <Row>
+                            <Grid cols="12">
+                                <p className="login-box-msg">{loginMode ? 'Ou entre com:' : 'Ou registre com:'}</p>
+                            </Grid>                            
+                        </Row>
+                        <Row>                           
+                            <Grid cols="6">
+                                <a className="login-box-msg" onClick={() => this.changeMode()}>
+                                    <i className="fa fa-google fa-3x"></i>  google
+                                </a>
+                            </Grid>
+                            <Grid cols="6">
+                                <a className="login-box-msg" onClick={() => this.changeMode()}>
+                                    <i className="fa fa-facebook fa-3x"></i>  facebook
+                                </a>
+                            </Grid>
+                        </Row>
                     </form>
                     <br />
                     <a onClick={() => this.changeMode()}>
