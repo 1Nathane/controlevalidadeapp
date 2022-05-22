@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { getList, showUpdate, showDelete, getListTodos } from './batchActions'
 import date from 'date-and-time'
+import moment from 'moment'
 
 import TabsFooter from '../common/tab/tabsFooter'
 import Pagination from '../common/template/pagination'
@@ -15,7 +16,7 @@ class BatchList extends Component {
 
     formatDate(value) {
         const data = new Date(value)
-        return date.format(data, 'DD/MM/YYYY')
+        return date.format((moment(data).add(1, 'days').toDate()), 'DD/MM/YYYY')
     }
 
     renderRows() {

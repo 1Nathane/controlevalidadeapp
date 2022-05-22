@@ -7,6 +7,7 @@ import Grid from '../common/layout/grid'
 import ChartLine from './ChartLine'
 import ChartPie from './ChartPie'
 
+import './Chart.css'
 class Report extends Component {
 
     render() {

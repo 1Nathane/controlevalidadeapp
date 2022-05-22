@@ -23,14 +23,6 @@ export function getListTodos() {
     }
 }
 
-export function getValueYear() {
-    const request = axios.get(`${consts.API_URL}/batch/outputdateyear?user_email=_${controleValidadeUser['email']}`)
-    return {
-        type: 'BATCH_FETCHED',
-        payload: request
-    }
-}
-
 export function create(values) {
     return submit(values, 'post')
 }

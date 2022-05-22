@@ -2,41 +2,39 @@ import React, { Component } from "react";
 import { Line } from 'react-chartjs-2'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getList, showUpdate, showDelete } from '../batch/batchActions'
+import { getList} from './reportActions'
 import moment from 'moment'
 
-
+const controleValidadeUser = JSON.parse(localStorage.getItem('_controlevalidade_user'))
 class ChartLine extends Component {
-  // componentWillMount() {
-//     this.props.getValueYear()
-// }
+  componentWillMount() {
+    this.props.getList()
+}
 
-//   getYear (){
-//     const date = Date.now()
-//       return moment(date).format('YYYY')
-//   }
+  isUser (user) {
+    if (user == `_${controleValidadeUser['email']}`)
+    return true
+    else
+    return false
+  }
 
-//   CalValues() {
-//     var jan = 0
-//     var feb = 0
-//     var mar = 0
-//     var apr = 0
-//     var may = 0
-//     var jun = 0
-//     var jul = 0
-//     var aug = 0
-//     var sep = 0
-//     var oct = 0
-//     var nov = 0
-//     var dec = 0
-//     var year = this.getYear
+  getYear (){
+    const date = Date.now()
+      return moment(date).format('YYYY')
+  }
 
-//     const list = this.props.list || []
-//     list.map(bc => (
-//       mouth = this.whatMouth(bc.outputDate)        
-//     ))
-//     return [ jan, feb, mar, apr, may, jun, jul, aug, sep, oct, nov, dec ]
-//   }
+  CalValues() {
+    var values = [0,0,0,0,0,0,0,0,0,0,0,0]
+    var year = this.getYear()
+
+    const list = this.props.list || []
+    list.map(bc => (
+      this.isUser(bc._id) ?
+      bc.year == year ?
+      values[bc.month - 1] = bc.total : values : values        
+    ))
+    return values
+  }
 
 
   render() {
@@ -61,8 +59,8 @@ class ChartLine extends Component {
             ],
             datasets: [
               {
-                label:'# of votes',
-                data: [12, 19, 3, 5, 2, 3],
+                label:'Quantidade de lotes',
+                data: this.CalValues(),
                 backgroundColor: 'rgba(221, 75, 57, 0.6)',
                 borderColor: 'rgba(221, 75, 57, 1)',
                 borderWidth: 1,
@@ -89,6 +87,6 @@ class ChartLine extends Component {
   }
 }
 
-const mapStateToProps = state => ({ list: state.batch.list })
-const mapDispatchToProps = dispatch => bindActionCreators({ getList, showUpdate, showDelete }, dispatch)
+const mapStateToProps = state => ({ list: state.report.list })
+const mapDispatchToProps = dispatch => bindActionCreators({ getList}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(ChartLine)
