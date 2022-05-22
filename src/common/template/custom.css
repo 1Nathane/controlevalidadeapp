@@ -1,0 +1,59 @@
+.main-footer {
+    position: fixed;
+    bottom:0px;
+    width:100%;
+}
+
+button {
+    margin-left: 5px;
+}
+
+.table-actions {
+    width: 150px;
+}
+
+.table-dates {
+  width: 250px;
+}
+
+.table-dates-2 {
+  width: 120px;
+}
+
+.table-status {
+  width: 200px;
+}
+
+.table-ref {
+  width: 400px;
+}
+
+.table-nome {
+  width: 300px;
+}
+
+.table-title {
+  text-align: center;
+  font-weight: 600;
+}
+
+.next-to-expire {
+  border-top: solid rgb(180, 180, 180);
+  border-bottom: solid rgb(180, 180, 180);
+  border-radius: 5px;
+}
+
+.row-red {
+  background-color: #DD4B39;
+  color: white;
+}
+
+.row-yellow {
+  background-color: #F39C12;
+  color: white;
+}
+
+.row-green {
+  background-color: #00A65A;
+  color: white;
+}
