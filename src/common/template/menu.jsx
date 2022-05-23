@@ -18,8 +18,7 @@ export default props => (
                 label='Produtos' icon='cube' />
             <MenuItem path='batch'
                 label='Lotes' icon='cubes' />
-            <MenuItem path='report'
-                label='Relatórios' icon='pie-chart' />
         </MenuTree>
+        <MenuItem path='report' label='Relatórios' icon='pie-chart' />
     </ul>
 )
