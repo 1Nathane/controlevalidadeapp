@@ -39,9 +39,13 @@ function userIsValid() {
     })
 }
 
+const userSave = localStorage.getItem('_controlevalidade_user')
+
 export function validateToken() {
     return dispatch => {
          if(userIsValid()){
+            dispatch([{ type: 'TOKEN_VALIDATED', payload: true}])
+         } else if (userSave){
             dispatch([{ type: 'TOKEN_VALIDATED', payload: true}])
          } else {
             dispatch([{ type: 'TOKEN_VALIDATED', payload: false }])
