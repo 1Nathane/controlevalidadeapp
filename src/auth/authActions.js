@@ -1,44 +1,50 @@
+import React, { useCallback } from 'react'
 import { toastr } from 'react-redux-toastr'
 import axios from 'axios'
 import consts from '../consts'
+import { authConfig } from './Config'
+
 
 export function login(values) {
-    return submit(values, `${consts.OAPI_URL}/login`)
+    return submit(authConfig.auth().signInWithEmailAndPassword(values['email'], values['password'])) 
 }
 
 export function signup(values) {
-    return submit(values, `${consts.OAPI_URL}/signup`)
+    return submit(authConfig.auth().createUserWithEmailAndPassword(values['email'], values['password']))
 }
 
-function submit(values, url) {
-    return dispatch => {
-        axios.post(url, values)
-            .then(resp => {
-                dispatch([
-                    { type: 'USER_FETCHED', payload: resp.data }
-                ])
-            })
-            .catch(e => {
-                e.response.data.errors.forEach(
-                    error => toastr.error('Erro', error))
-            })
-    }
-}
+function submit(response) {
+    return function(dispatch){
+        return (response).then(resp => {
+            dispatch([
+               { type: 'USER_FETCHED', payload: resp.user }
+            ])        
+    }).catch(error => {
+            toastr.error('Erro', error.message)
+        })
+}}
 
 export function logout() {
+    authConfig.auth().signOut()
     return { type: 'TOKEN_VALIDATED', payload: false }
 }
 
-export function validateToken(token) {
-    return dispatch => {
-        if (token) {
-            axios.post(`${consts.OAPI_URL}/validateToken`, { token })
-                .then(resp => {
-                    dispatch({ type: 'TOKEN_VALIDATED', payload: resp.data.valid })
-                })
-                .catch(e => dispatch({ type: 'TOKEN_VALIDATED', payload: false }))
+function userIsValid() {
+    authConfig.auth().onAuthStateChanged((user) => {
+        if (user) {
+            return true
         } else {
-            dispatch({ type: 'TOKEN_VALIDATED', payload: false })
+            return false
         }
-    }
+    })
+}
+
+export function validateToken() {
+    return dispatch => {
+         if(userIsValid()){
+            dispatch([{ type: 'TOKEN_VALIDATED', payload: true}])
+         } else {
+            dispatch([{ type: 'TOKEN_VALIDATED', payload: false }])
+         }
+    } 
 }

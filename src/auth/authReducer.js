@@ -15,7 +15,7 @@ export default (state = INITIAL_STATE, action) => {
             }
         case 'USER_FETCHED':
             localStorage.setItem(userKey, JSON.stringify(action.payload))
-            location.reload()
+            // location.reload()
             return { ...state, user: action.payload, validToken: true }
         default:
             return state
