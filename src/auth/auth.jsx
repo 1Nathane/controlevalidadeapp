@@ -30,10 +30,13 @@ class Auth extends Component {
 
     loginProviderGoogle() {
        var provider = new firebase.auth.GoogleAuthProvider()
-       provider.addScope('profile')
-       provider.addScope('email')
         return loginProvider(provider)
     }
+
+    loginProviderFacebook() {
+        var provider = new firebase.auth.FacebookAuthProvider()
+         return loginProvider(provider)
+     }
 
     render() {
         const { loginMode } = this.state
@@ -72,7 +75,7 @@ class Auth extends Component {
                                 </a>
                             </Grid>
                             <Grid cols="6">
-                                <a className="login-box-msg" onClick={() => this.changeMode()}>
+                                <a className="login-box-msg" onClick={() => this.loginProviderFacebook()}>
                                     <i className="fa fa-facebook fa-3x"></i>  facebook
                                 </a>
                             </Grid>
