@@ -4,12 +4,14 @@ import { reduxForm, Field } from 'redux-form'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 
-import { login, signup } from './authActions'
+import { login, signup, loginProvider } from './authActions'
 import Row from '../common/layout/row'
 import Grid from '../common/layout/grid'
 import If from '../common/operator/if'
 import Messages from '../common/msg/messages'
 import Input from '../common/form/inputAuth'
+import firebase from 'firebase'
+
 
 class Auth extends Component {
     constructor(props) {
@@ -24,6 +26,13 @@ class Auth extends Component {
     onSubmit(values) {
         const { login, signup } = this.props
         this.state.loginMode ? login(values) : signup(values)
+    }
+
+    loginProviderGoogle() {
+       var provider = new firebase.auth.GoogleAuthProvider()
+       provider.addScope('profile')
+       provider.addScope('email')
+        return loginProvider(provider)
     }
 
     render() {
@@ -53,12 +62,12 @@ class Auth extends Component {
                         </Row>
                         <Row>
                             <Grid cols="12">
-                                <p className="login-box-msg">{loginMode ? 'Ou entre com:' : 'Ou registre com:'}</p>
+                                <p className="login-box-msg">{'Ou entre com:'}</p>
                             </Grid>                            
                         </Row>
                         <Row>                           
                             <Grid cols="6">
-                                <a className="login-box-msg" onClick={() => this.changeMode()}>
+                                <a className="login-box-msg" onClick={() => this.loginProviderGoogle()}>
                                     <i className="fa fa-google fa-3x"></i>  google
                                 </a>
                             </Grid>
@@ -82,5 +91,5 @@ class Auth extends Component {
 }
 
 Auth = reduxForm({ form: 'authForm' })(Auth)
-const mapDispatchToProps = dispatch => bindActionCreators({ login, signup }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ login, signup, loginProvider }, dispatch)
 export default connect(null, mapDispatchToProps)(Auth)

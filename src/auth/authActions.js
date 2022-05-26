@@ -48,6 +48,17 @@ export function signup(values) {
    }
 }
 
+export function loginProvider(provider) {
+        return (authConfig.auth().signInWithPopup(provider)).then(resp => {
+            var user = resp.user
+            localStorage.setItem('_controlevalidade_user', JSON.stringify(user))
+            location.reload()
+    }).catch(error => {
+            toastr.error('Erro', error.message)
+    })
+}
+
+
 function submit(response) {
     return function(dispatch){
         return (response).then(resp => {

@@ -14,7 +14,7 @@ class Navbar extends Component {
     }
 
     render() {
-        const { name, email } = this.props.user
+        const { displayName, email } = this.props.user
         return (
             <div className="navbar-custom-menu">
                 <ul className="nav navbar-nav">
@@ -27,13 +27,13 @@ class Navbar extends Component {
                             data-toggle="dropdown">
                             <img src="https://aco.org.br/2020/wp-content/uploads/2020/12/default-user-avatar.jpg"
                                 className="user-image" alt="User Image" />
-                            <span className="hidden-xs">{name}</span>
+                            <span className="hidden-xs">{displayName}</span>
                         </a>
                         <ul className="dropdown-menu">
                             <li className="user-header">
                                 <img src="https://aco.org.br/2020/wp-content/uploads/2020/12/default-user-avatar.jpg"
                                     className="img-circle" alt="User Image" />
-                                <p>{name}<small>{email}</small></p>
+                                <p>{displayName}<small>{email}</small></p>
                             </li>
                             <li className="user-footer">
                                 <div className="pull-right">
